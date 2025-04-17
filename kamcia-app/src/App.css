@@ -146,3 +146,44 @@ h1 {
   100% { opacity: 1; }
 }
 
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+
+  #counter {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+  }
+
+  .button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    margin: 10px;
+  }
+
+  #warningLabel {
+    font-size: 1.2em;
+    padding: 10px 20px;
+    top: 10px;
+    right: 10px;
+  }
+
+  .glitter {
+    width: 4px;
+    height: 4px;
+  }
+}
+
+body, html, #root, .App {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.App {
+  padding: 10px;
+  text-align: center;
+  word-wrap: break-word;
+}
