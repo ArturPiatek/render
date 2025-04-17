@@ -36,3 +36,113 @@
     transform: rotate(360deg);
   }
 }
+
+body, html, #root, .App {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+}
+
+.App {
+  background-image: url('https://omotgtravel.com/wp-content/uploads/2024/03/jagermeister-bottle.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-shadow: 0 0 10px #000;
+  overflow: hidden;
+  position: relative;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+  text-shadow: 0 0 15px #ff4500;
+  z-index: 2;
+}
+
+#counter {
+  font-size: 2em;
+  margin-bottom: 40px;
+  color: #ffd700;
+  text-shadow: 0 0 10px #000;
+  z-index: 2;
+}
+
+.button {
+  margin: 15px;
+  padding: 20px 50px;
+  font-size: 1.5em;
+  color: white;
+  background: rgba(255, 69, 0, 0.8);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #ff6f00;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  backdrop-filter: blur(2px);
+  z-index: 2;
+}
+
+.button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px #ffaa00;
+}
+
+.pouring {
+  animation: pulse 0.4s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.glitter {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #fff, #ffd700, #ff4500);
+  border-radius: 50%;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: fall linear infinite;
+  z-index: 1;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) scale(0.5);
+    opacity: 0;
+  }
+}
+
+#warningLabel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: red;
+  color: white;
+  padding: 20px 30px;
+  font-size: 2em;
+  font-weight: bold;
+  border-radius: 10px;
+  z-index: 999;
+  animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
