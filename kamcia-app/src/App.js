@@ -11,18 +11,18 @@ import eymp4 from './assets/ey.mp4';
 function App() {
   const [total, setTotal] = useState(0);
   const [showWarning, setShowWarning] = useState(false);
-  const sounds = useRef([]);
-  const playedSounds = useRef([]);
+  const sounds = useRef([]); // Holds the list of sounds to be played
+  const playedSounds = useRef([]); // Holds sounds that have already been played
 
+  // Shuffle the sounds when the component mounts
   useEffect(() => {
-    // Initialize shuffled list of sounds
     sounds.current = shuffle([
       sexplmp4,
       yeahmp4,
       ump4,
       smiechmp4,
       legiamp4,
-      eymp4
+      eymp4,
     ]);
   }, []);
 
@@ -35,9 +35,10 @@ function App() {
     return shuffled;
   };
 
+  // Get the next sound to play (ensuring no repetition until all are played)
   const getNextSound = () => {
     if (sounds.current.length === 0) {
-      // All sounds have been played, reshuffle
+      // Once all sounds have been played, reshuffle and reset the played sounds
       sounds.current = shuffle(playedSounds.current);
       playedSounds.current = [];
     }
@@ -47,6 +48,33 @@ function App() {
     return next;
   };
 
+  // Play the shot sound and trigger the button animation
+  const pourShot = (amount, e) => {
+    const button = e.currentTarget;
+    button.classList.add('pouring');
+    setTimeout(() => button.classList.remove('pouring'), 400);
+
+    const randomSound = getNextSound();
+    const audio = new Audio(randomSound);
+    audio.currentTime = 0;
+    audio.play();
+
+    setTotal((prev) => prev + amount);
+  };
+
+  // Create glitter effect
+  const createGlitter = () => {
+    const glitter = document.createElement('div');
+    glitter.className = 'glitter';
+    glitter.style.left = Math.random() * 100 + 'vw';
+    glitter.style.top = '50vh'; // Start from the middle of the screen
+    glitter.style.animationDuration = (2 + Math.random() * 3) + 's';
+    glitter.style.opacity = Math.random();
+    document.body.appendChild(glitter);
+    setTimeout(() => glitter.remove(), 5000);
+  };
+
+  // Use effect for glitter creation and warning display
   useEffect(() => {
     const interval = setInterval(createGlitter, 150);
     return () => clearInterval(interval);
@@ -57,30 +85,6 @@ function App() {
       setShowWarning(true);
     }
   }, [total]);
-
-  const pourShot = (amount, e) => {
-    const button = e.currentTarget;
-    button.classList.add('pouring');
-    setTimeout(() => button.classList.remove('pouring'), 400);
-  
-    const randomSound = getNextSound();
-    const audio = new Audio(randomSound);
-    audio.currentTime = 0;
-    audio.play();
-  
-    setTotal(prev => prev + amount);
-  };
-
-  const createGlitter = () => {
-    const glitter = document.createElement('div');
-    glitter.className = 'glitter';
-    glitter.style.left = Math.random() * 100 + 'vw';
-    glitter.style.top = '50vh'; // start from middle
-    glitter.style.animationDuration = (2 + Math.random() * 3) + 's';
-    glitter.style.opacity = Math.random();
-    document.body.appendChild(glitter);
-    setTimeout(() => glitter.remove(), 5000);
-  };
 
   return (
     <div className="App">
